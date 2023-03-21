@@ -1,6 +1,7 @@
 package com.graphql.gorbatovskii.training.controller;
 
 import com.graphql.gorbatovskii.training.model.Link;
+import com.graphql.gorbatovskii.training.model.LinkFilter;
 import com.graphql.gorbatovskii.training.model.User;
 import com.graphql.gorbatovskii.training.repository.LinkRepository;
 import com.graphql.gorbatovskii.training.repository.UserRepository;
@@ -29,8 +30,11 @@ public class LinkController {
     }
 
     @QueryMapping
-    public List<Link> allLinks() {
-        return this.linkRepository.findAll();
+    public List<Link> allLinks(final @Argument LinkFilter filter) {
+        return this.linkRepository.findByUrlContainsAndDescriptionContains(
+            Optional.ofNullable(filter).map(LinkFilter::getUrlContains).orElse(""),
+            Optional.ofNullable(filter).map(LinkFilter::getDescriptionContains).orElse("")
+        );
     }
 
     @QueryMapping

@@ -5,7 +5,7 @@ schema {
 
 type Query {
     linkById(id: ID): Link
-    allLinks: [Link]
+    allLinks(filter: LinkFilter): [Link]
 }
 
 type Mutation {
@@ -47,3 +47,8 @@ type Vote {
 }
 
 scalar DateTime
+
+input LinkFilter {
+    descriptionContains: String
+    urlContains: String
+}
