@@ -22,14 +22,19 @@ public class LinkController {
 
     @QueryMapping
     public List<Link> allLinks() {
-        return this.linkRepository.getAllLinks();
+        return this.linkRepository.findAll();
+    }
+
+    @QueryMapping
+    public Link linkById(final @Argument String id) {
+        return this.linkRepository.findById(id).orElse(null);
     }
 
     @MutationMapping
     public Link createLink(final @Argument String url,
                            final @Argument String description) {
-        Link newLink = new Link(url, description);
-        linkRepository.saveLink(newLink);
-        return newLink;
+        return this.linkRepository.save(
+            new Link(url, description)
+        );
     }
 }

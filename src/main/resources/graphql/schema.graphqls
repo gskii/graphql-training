@@ -5,6 +5,7 @@ schema {
 
 type Query {
     bookById(id: ID): Book
+    linkById(id: ID): Link
     allLinks: [Link]
 }
 
@@ -26,6 +27,7 @@ type Author {
 }
 
 type Link {
+    id: ID!
     url: String!
     description: String!
 }
