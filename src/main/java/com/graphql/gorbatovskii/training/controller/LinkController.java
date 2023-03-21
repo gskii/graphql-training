@@ -1,9 +1,11 @@
 package com.graphql.gorbatovskii.training.controller;
 
 import com.graphql.gorbatovskii.training.model.Link;
+import com.graphql.gorbatovskii.training.model.User;
 import com.graphql.gorbatovskii.training.repository.LinkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.ContextValue;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -32,9 +34,10 @@ public class LinkController {
 
     @MutationMapping
     public Link createLink(final @Argument String url,
-                           final @Argument String description) {
+                           final @Argument String description,
+                           final @ContextValue(required = false) User user) {
         return this.linkRepository.save(
-            new Link(url, description)
+            new Link(url, description, user == null ? null : user.getId())
         );
     }
 }
