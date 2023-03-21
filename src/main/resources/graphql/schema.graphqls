@@ -4,7 +4,6 @@ schema {
 }
 
 type Query {
-    bookById(id: ID): Book
     linkById(id: ID): Link
     allLinks: [Link]
 }
@@ -13,19 +12,6 @@ type Mutation {
     createLink(url: String!, description: String!): Link
     createUser(name: String!, authProvider: AuthData!): User
     signInUser(auth: AuthData): SignInPayload
-}
-
-type Book {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
-}
-
-type Author {
-    id: ID
-    firstName: String
-    lastName: String
 }
 
 type Link {
