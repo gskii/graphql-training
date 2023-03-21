@@ -1,10 +1,10 @@
 package com.graphql.gorbatovskii.training.controller;
 
+import com.graphql.gorbatovskii.training.exception.InvalidCredentialsException;
 import com.graphql.gorbatovskii.training.model.AuthData;
 import com.graphql.gorbatovskii.training.model.SignInPayload;
 import com.graphql.gorbatovskii.training.model.User;
 import com.graphql.gorbatovskii.training.repository.UserRepository;
-import graphql.GraphQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
@@ -27,7 +27,7 @@ public class SignInController {
         if (user.getPassword().equals(auth.getPassword())) {
             return new SignInPayload(user.getId(), user);
         }
-        throw new GraphQLException("Invalid credentials");
+        throw new InvalidCredentialsException("Invalid credentials");
     }
 
     @SchemaMapping
