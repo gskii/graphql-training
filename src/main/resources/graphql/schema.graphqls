@@ -12,6 +12,7 @@ type Mutation {
     createLink(url: String!, description: String!): Link
     createUser(name: String!, authProvider: AuthData!): User
     signInUser(auth: AuthData): SignInPayload
+    createVote(linkId: ID, userId: ID): Vote
 }
 
 type Link {
@@ -37,3 +38,12 @@ type SignInPayload {
     token: String
     user: User
 }
+
+type Vote {
+    id: ID!
+    createdAt: DateTime!
+    user: User!
+    link: Link!
+}
+
+scalar DateTime
