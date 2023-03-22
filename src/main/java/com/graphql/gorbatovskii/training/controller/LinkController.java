@@ -40,10 +40,13 @@ public class LinkController {
     }
 
     @QueryMapping
-    public List<Link> allLinks(final @Argument LinkFilter filter) {
-        return this.linkRepository.findByUrlContainsAndDescriptionContains(
+    public List<Link> allLinks(final @Argument LinkFilter filter,
+                               final @Argument int skip,
+                               final @Argument int first) {
+        return this.linkRepository.findAllByUrlContainsAndDescriptionContains(
             Optional.ofNullable(filter).map(LinkFilter::getUrlContains).orElse(""),
-            Optional.ofNullable(filter).map(LinkFilter::getDescriptionContains).orElse("")
+            Optional.ofNullable(filter).map(LinkFilter::getDescriptionContains).orElse(""),
+            skip, first
         );
     }
 
